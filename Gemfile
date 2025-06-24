@@ -2,6 +2,7 @@ source "https://rubygems.org"
 
 gem 'rack'
 gem 'rackup'
+gem 'puma'
 gem 'json'
 gem 'httparty'
 gem 'minitest'
