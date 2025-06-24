@@ -12,6 +12,9 @@ class Endpoints
     response['Content-Type'] = 'application/json'
     
     case [path, method]
+    when ['/', 'GET']
+      response.status = 200
+      response.write({message: 'crypto-portfolio welcome page'}.to_json)
     when ['/convert', 'POST']
       begin
         data = JSON.parse(body)
