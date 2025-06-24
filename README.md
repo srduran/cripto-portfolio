@@ -54,6 +54,12 @@ La API permite convertir portafolios de criptomonedas a monedas fiat usando prec
 ---
 
 ## Endpoints para probar
+
+### Localmente
+**GET** `/` \
+Página de bienvenida de la API \
+`curl http://localhost:9292/`
+
 **POST** `/convert` \
 Convierte un portafolio de criptomonedas a moneda fiat \
 `curl -X POST http://localhost:9292/convert -H "Content-Type: application/json" -d '{"portfolio":{"BTC":0.5,"ETH":2.0,"USDT":1000},"fiat_currency":"CLP"}'`
@@ -61,6 +67,42 @@ Convierte un portafolio de criptomonedas a moneda fiat \
 **GET** `/openapi.yaml` \
 Especificación OpenAPI en formato YAML \
 `curl http://localhost:9292/openapi.yaml`
+
+### En producción (Heroku)
+**GET** `/` \
+Página de bienvenida de la API \
+`curl https://crypto-portfolio-api-233b6507668d.herokuapp.com/`
+
+**POST** `/convert` \
+Convierte un portafolio de criptomonedas a moneda fiat \
+`curl -X POST https://crypto-portfolio-api-233b6507668d.herokuapp.com/convert -H "Content-Type: application/json" -d '{"portfolio":{"BTC":0.5,"ETH":2.0,"USDT":1000},"fiat_currency":"CLP"}'`
+
+**GET** `/openapi.yaml` \
+Especificación OpenAPI en formato YAML \
+`curl https://crypto-portfolio-api-233b6507668d.herokuapp.com/openapi.yaml`
+
+### Ejemplos de respuesta
+
+#### Endpoint raíz (GET /)
+```json
+{
+  "message": "crypto-portfolio welcome page"
+}
+```
+
+#### Conversión exitosa (POST /convert)
+```json
+{
+  "amount": "$1060000.0 CLP"
+}
+```
+
+#### Error de validación (POST /convert)
+```json
+{
+  "error": "Missing required fields: portfolio and fiat_currency"
+}
+```
 
 ---
 
