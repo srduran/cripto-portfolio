@@ -23,6 +23,10 @@ class Endpoints
         response.status = 200
         response.write(@currency_converter.convert(data).to_json)
       end
+    when ['/openapi', 'GET']
+      response.status = 200
+      response['Content-Type'] = 'text/yaml'
+      response.write(File.read('static/openapi.yaml'))
     else
       response.status = 404
       response.write({ error: 'Not Found' }.to_json)

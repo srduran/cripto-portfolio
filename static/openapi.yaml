@@ -1,0 +1,63 @@
+openapi: 3.0.3
+info:
+  title: Crypto Portfolio Converter API
+  version: 1.0.0
+  description: |
+    API to convert portfolio of cryptocurrencies to fiat currency using real-time prices from Buda API.
+servers:
+  - url: http://localhost:9292
+paths:
+  /convert:
+    post:
+      summary: Convert portfolio of cryptocurrencies to fiat currency
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              example:
+                portfolio:
+                  BTC: 0.5
+                  ETH: 2.0
+                fiat_currency: "CLP"
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConvertResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    ConvertRequest:
+      type: object
+      required:
+        - portfolio
+        - fiat_currency
+      properties:
+        portfolio:
+          type: object
+          additionalProperties:
+            type: number
+        fiat_currency:
+          type: string
+    ConvertResponse:
+      type: object
+      required:
+        - amount
+      properties:
+        amount:
+          type: string
+    ErrorResponse:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
